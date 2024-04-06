@@ -1,3 +1,4 @@
+import { TagList, splitTags } from "@/components/tags-list";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { getRooms } from "@/data-access/rooms";
@@ -16,7 +17,8 @@ function RoomCard({ room }: { room: Room }) {
           {room.description}
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex flex-col gap-4">
+        <TagList tags={splitTags(room.tags)} />
         {room.githubRepo && (
           <Link href={room.githubRepo} className="flex items-center gap-2" target="_blank" rel="noopener noreferrer">
             <GithubIcon />
