@@ -47,10 +47,10 @@ export function EditRoomForm({ room }: { room: Room }) {
           id: params.roomId as string,
           ...values,
         });
-    // toast({
-    //   title: "Room Created",
-    //   description: "Your room was successfully created",
-    // });
+    toast({
+      title: "Room Updated",
+      description: "Your room was successfully updated",
+    });
   }
 
   return (

@@ -1,22 +1,22 @@
 "use server";
 
 import { deleteRoom, getRoom } from "@/data-access/rooms";
-import { getSession } from "next-auth/react";
+import { getSession } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
 export async function deleteRoomAction(roomId: string) {
-    const session = await getSession();
-    if (!session) {
-        throw new Error("User not authenticated");
-    }
+  const session = await getSession();
+  if (!session) {
+    throw new Error("User not authenticated");
+  }
 
-    const room = await getRoom(roomId);
+  const room = await getRoom(roomId);
 
-    if (room?.userId !== session.user.id) {
-        throw new Error("User not authorized");
-    }
+  if (room?.userId !== session.user.id) {
+    throw new Error("User not authorized");
+  }
 
-    await deleteRoom(roomId);
+  await deleteRoom(roomId);
 
-    revalidatePath("/your-rooms");
+  revalidatePath("/your-rooms");
 }

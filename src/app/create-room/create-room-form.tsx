@@ -41,12 +41,12 @@ export function CreateRoomForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-        await createRoomAction(values);
-    // toast({
-    //   title: "Room Created",
-    //   description: "Your room was successfully created",
-    // });
-    router.push("/");
+    const room = await createRoomAction(values);
+    toast({
+      title: "Room Created",
+      description: "Your room was successfully created",
+    });
+    router.push(`/rooms/${room.id}`);
   }
 
   return (
