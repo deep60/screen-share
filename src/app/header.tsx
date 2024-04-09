@@ -37,6 +37,7 @@ function AccountDropdown() {
 }
 export function Header() {
     const session = useSession();
+    const isLoggedIn = !!session.data;
     return (
         <header className="bg-gray-100 py-2 dark:bg-gray-900 container mx-auto">
             <div className="flex justify-between items-center">
@@ -44,10 +45,24 @@ export function Header() {
                 <Image src="/logo.png" width="60" height="60" alt="the application icon" /> 
                 ScreenShare
             </Link>
-            <div className="flex items-center gap-4">
-                {session.data && <AccountDropdown /> }
-                {!session.data && (
-                    <Button onClick={() => signIn()} variant="link"></Button>
+            <nav className="flex gap-4">
+                {isLoggedIn && (
+                    <>
+                        <Link className="hover:underline bg-#86efac" href="/browse">
+                            Browse
+                        </Link>
+                        <Link className="hover:underline bg-#86efac" href="/your-rooms">
+                            Your Rooms
+                        </Link>
+                    </>
+                )}
+            </nav>
+            <div className="flex items-center gap-8">
+                {isLoggedIn && <AccountDropdown /> }
+                {!isLoggedIn && (
+                    <Button onClick={() => signIn()} variant="link">
+                        <LogInIcon className="mr-2" /> Sign In
+                    </Button>
                 )}
                 <ModeToggle />
             </div>
